@@ -1,5 +1,6 @@
 package io.cg.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.cg.entities.parents.User;
 import io.cg.enums.Role;
 import jakarta.persistence.*;
@@ -38,6 +39,7 @@ public class Member extends User {
     private List<Comment> likedComments;
 
     @Enumerated(EnumType.ORDINAL)
+    @JsonIgnore
     private Role role;
 
 }
