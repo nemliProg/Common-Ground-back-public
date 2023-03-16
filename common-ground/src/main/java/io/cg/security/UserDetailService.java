@@ -33,15 +33,15 @@ public class UserDetailService implements UserDetailsService {
         String type     = emailAndType.split(":")[1];
 
         switch (type) {
-            case "admin" -> {
+            case "ROLE_ADMIN" -> {
                 Admin admin = adminRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Admin not found"));
                 return new User(email, admin.getPassword(), Collections.singleton(new SimpleGrantedAuthority(Role.ROLE_ADMIN.name())));
             }
-            case "agent" -> {
-                Member agent = memberRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Agent not found"));
+            case "ROLE_AGENT" -> {
+                Member agent = memberRepository.findAgentMemberByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Agent not found"));
                 return new User(email, agent.getPassword(), Collections.singleton(new SimpleGrantedAuthority(Role.ROLE_AGENT.name())));
             }
-            case "member" -> {
+            case "ROLE_MEMBER" -> {
                 Member member = memberRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("member not found"));
                 return new User(email, member.getPassword(), Collections.singleton(new SimpleGrantedAuthority(Role.ROLE_MEMBER.name())));
             }
