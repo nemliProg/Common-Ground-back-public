@@ -12,7 +12,8 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @RestResource(exported = false)
-    Optional<Member> findByEmail(String email);
+    @Query(value = "SELECT m.* FROM member m WHERE m.email LIKE :email AND m.role = 0", nativeQuery = true)
+    Optional<Member> findByRegularMemberByEmail(String email);
 
     @RestResource(exported = false)
     @Query(value = "SELECT m.* FROM member m WHERE m.email LIKE :email AND m.role = 1", nativeQuery = true)

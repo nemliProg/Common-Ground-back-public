@@ -42,7 +42,7 @@ public class UserDetailService implements UserDetailsService {
                 return new User(email, agent.getPassword(), Collections.singleton(new SimpleGrantedAuthority(Role.ROLE_AGENT.name())));
             }
             case "ROLE_MEMBER" -> {
-                Member member = memberRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("member not found"));
+                Member member = memberRepository.findByRegularMemberByEmail(email).orElseThrow(() -> new UsernameNotFoundException("member not found"));
                 return new User(email, member.getPassword(), Collections.singleton(new SimpleGrantedAuthority(Role.ROLE_MEMBER.name())));
             }
             default -> throw new UsernameNotFoundException("User not found");
