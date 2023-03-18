@@ -19,5 +19,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query(value = "SELECT m.* FROM member m WHERE m.email LIKE :email AND m.role = 1", nativeQuery = true)
     Optional<Member> findAgentMemberByEmail(String email);
 
+    @RestResource(exported = false)
+    Optional<Member> findByEmail(String email);
+
 
 }
